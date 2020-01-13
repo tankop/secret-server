@@ -5,6 +5,10 @@
 !*/cache/index.html
 !*/cache/.htaccess
 /.idea/
+composer.lock
+.editorconfig
+contributing.md
+readme.rst
 
 user_guide_src/build/*
 user_guide_src/cilexer/build/*
