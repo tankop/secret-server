@@ -44,6 +44,17 @@ class MasterModel extends CI_Model {
         }
     }
 
+	public function toArray($strict = false) {
+		$array = get_object_vars($this);
+		if ($strict) {
+			foreach ($array as $key => $value) {
+				if (!$this->checkProperty($key))
+					unset($array[$key]);
+			}
+		}
+		return $array;
+	}
+
     public function save() {
         if (!isset($this->id) || !$this->id) {
             return $this->insert();
