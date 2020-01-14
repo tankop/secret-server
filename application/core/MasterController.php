@@ -16,6 +16,7 @@ class MasterController extends CI_Controller {
 		date_default_timezone_set('UTC');
 		$this->load_models = array_merge(
 			$this->load_models, [
+				'Secret'
 			]
 		);
 		$this->loadModels();
