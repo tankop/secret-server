@@ -37,3 +37,9 @@ if (!function_exists('create_flash')) {
 	}
 }
 
+if (!function_exists('hashGenerator')) {
+	function hashGenerator() {
+		return md5(uniqid(rand(), true));
+	}
+}
+
