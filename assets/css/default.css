@@ -1,0 +1,78 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("/assets/fonts/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto Bold";
+  src: url("/assets/fonts/Roboto-Bold.ttf");
+}
+body {
+  font-family: "Roboto";
+  color: #4b4b4e;
+}
+#main-container {
+  height: 100vh;
+}
+#main-container .custom-container {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background: #f0f1f4;
+}
+#main-container .custom-container .wrap-content {
+  width: 920px;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+#main-container .custom-container .wrap-content h1 {
+  text-transform: uppercase;
+  font-family: "Roboto Bold";
+  color: #d9632a;
+}
+#main-container .custom-container .wrap-content p {
+  font-size: 18px;
+  font-family: "Roboto Bold";
+}
+#main-container .custom-container .wrap-content label {
+  font-size: 18px;
+}
+#main-container .custom-container .wrap-content .error-message {
+  font-size: 18px;
+  color: #d4000e;
+  font-family: "Roboto Bold";
+}
+#main-container .custom-container .wrap-content .success-message {
+  background-color: #e0f8c7;
+  font-size: 18px;
+  font-family: "Roboto Bold";
+}
+#main-container .custom-container .wrap-content .buttons .btn {
+  font-family: "Roboto Bold";
+  font-size: 20px;
+  border-radius: 25px;
+  min-width: 200px;
+}
+#main-container .custom-container .wrap-content .buttons .btn.custom-orange-btn {
+  background-color: #e6652a;
+  color: #fff;
+  text-transform: uppercase;
+}
+#main-container .custom-container .wrap-content .buttons .btn.custom-orange-btn:hover {
+  background-color: #d9632a;
+}
+#main-container .custom-container .wrap-content .buttons .btn.custom-grey-btn {
+  background-color: #4b4b4e;
+  color: #fff;
+  text-transform: uppercase;
+}
+#main-container .custom-container .wrap-content .buttons .btn.custom-grey-btn:hover {
+  background-color: #616164;
+}
+/*# sourceMappingURL=default.css.map */

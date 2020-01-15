@@ -1,0 +1,102 @@
+@color_grey: #f0f1f4;
+@color_dark_grey: #4b4b4e;
+@color_dark_grey_2: #616164;
+@color_white: #fff;
+@color_orange: #e6652a;
+@color_dark_orange: #d9632a;
+@color_red: #d4000e;
+@color_light_green: #e0f8c7;
+@font-face {
+  font-family: "Roboto";
+  src: url("/assets/fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Bold";
+  src: url("/assets/fonts/Roboto-Bold.ttf");
+}
+
+body {
+  font-family: "Roboto";
+  color: @color_dark_grey
+}
+
+#main-container {
+  height: 100vh;
+
+  .custom-container {
+	width: 100%;
+	min-height: 100vh;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	background: @color_grey;
+
+	.wrap-content {
+	  width: 920px;
+	  background: @color_white;
+	  overflow: hidden;
+	  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.20);
+
+	  h1 {
+		text-transform: uppercase;
+		font-family: "Roboto Bold";
+		color: @color_dark_orange;
+	  }
+
+	  p{
+		font-size: 18px;
+		font-family: "Roboto Bold";
+	  }
+
+	  label {
+		font-size: 18px;
+	  }
+
+	  .error-message {
+		font-size: 18px;
+		color: @color_red;
+		font-family: "Roboto Bold";
+	  }
+
+	  .success-message {
+		background-color: @color_light_green;
+		font-size: 18px;
+		font-family: "Roboto Bold";
+	  }
+
+	  .buttons {
+		.btn {
+		  font-family: "Roboto Bold";
+		  font-size: 20px;
+		  border-radius: 25px;
+		  min-width: 200px;
+
+		  &.custom-orange-btn {
+			background-color: @color_orange;
+			color: @color_white;
+			text-transform: uppercase;
+
+			&:hover {
+			  background-color: @color_dark_orange;
+			}
+		  }
+
+		  &.custom-grey-btn {
+			background-color: @color_dark_grey;
+			color: @color_white;
+			text-transform: uppercase;
+
+			&:hover {
+			  background-color: @color_dark_grey_2;
+			}
+		  }
+		}
+	  }
+	}
+  }
+}
