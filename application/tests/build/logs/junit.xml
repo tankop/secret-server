@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="CodeIgniter Application Test Suite" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.018838">
-    <testsuite name="SecretModel_test" file="D:\Projects\secret-server\application\tests\models\Secretmodel_test.php" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.018838">
-      <testcase name="check_hash_length" class="SecretModel_test" classname="SecretModel_test" file="D:\Projects\secret-server\application\tests\models\Secretmodel_test.php" line="18" assertions="1" time="0.011164"/>
-      <testcase name="check_secret_object_created" class="SecretModel_test" classname="SecretModel_test" file="D:\Projects\secret-server\application\tests\models\Secretmodel_test.php" line="26" assertions="1" time="0.004471"/>
-      <testcase name="check_created_secret_object_expiration_time" class="SecretModel_test" classname="SecretModel_test" file="D:\Projects\secret-server\application\tests\models\Secretmodel_test.php" line="48" assertions="1" time="0.003203"/>
+  <testsuite name="CodeIgniter Application Test Suite" tests="5" assertions="5" errors="0" failures="0" skipped="0" time="0.214330">
+    <testsuite name="SecretModel_test" file="D:\Projects\secret-server\application\tests\models\Secretmodel_test.php" tests="5" assertions="5" errors="0" failures="0" skipped="0" time="0.214330">
+      <testcase name="check_hash_length" class="SecretModel_test" classname="SecretModel_test" file="D:\Projects\secret-server\application\tests\models\Secretmodel_test.php" line="18" assertions="1" time="0.169874"/>
+      <testcase name="check_secret_object_created" class="SecretModel_test" classname="SecretModel_test" file="D:\Projects\secret-server\application\tests\models\Secretmodel_test.php" line="26" assertions="1" time="0.023116"/>
+      <testcase name="check_created_secret_object_expiration_time" class="SecretModel_test" classname="SecretModel_test" file="D:\Projects\secret-server\application\tests\models\Secretmodel_test.php" line="48" assertions="1" time="0.004147"/>
+      <testcase name="check_secret_is_expired_after_view" class="SecretModel_test" classname="SecretModel_test" file="D:\Projects\secret-server\application\tests\models\Secretmodel_test.php" line="67" assertions="1" time="0.013234"/>
+      <testcase name="check_secret_is_expired_after_expiration_time" class="SecretModel_test" classname="SecretModel_test" file="D:\Projects\secret-server\application\tests\models\Secretmodel_test.php" line="84" assertions="1" time="0.003959"/>
     </testsuite>
   </testsuite>
 </testsuites>

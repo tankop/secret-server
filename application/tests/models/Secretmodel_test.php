@@ -27,12 +27,12 @@ class SecretModel_test extends TestCase {
 		$this->ci->db->trans_start();
 
 		$secret = SecretModel::get();
-		$actual_date = date('Y-m-d H:i:s');
+		$actualDateTime = new DateTime();
 		$secret->fromArray([
 			SecretModel::SECRET_TEXT => 'Test',
 			SecretModel::REMAINING_VIEWS => 10,
-			SecretModel::EXPIRES_AT => $actual_date,
-			SecretModel::CREATED_AT => $actual_date,
+			SecretModel::EXPIRES_AT => $actualDateTime->format('Y-m-d H:i:s.u'),
+			SecretModel::CREATED_AT => $actualDateTime->format('Y-m-d H:i:s.u'),
 		]);
 		$secret->save();
 
@@ -58,6 +58,47 @@ class SecretModel_test extends TestCase {
 		$sinceCreatedAt = $expiresAt->getTimestamp() - $createdAt->getTimestamp();
 
 		$this->assertEquals($sinceCreatedAt, $seconds);
+		$this->ci->db->trans_rollback();
+	}
+
+	/**
+	 * @test
+	 */
+	public function check_secret_is_expired_after_view() {
+		$this->ci->db->trans_start();
+		$expireAfterViews = 5;
+		$minutes = 10;
+		$secret = SecretModel::get();
+		$secret->createSecret("Test", $expireAfterViews, $minutes);
+		for ($i = 1; $i <= $expireAfterViews; $i++) {
+			$secret->isShowed();
+		}
+
+		$this->assertEquals($secret->isExpired(), true);
+		$this->ci->db->trans_rollback();
+	}
+
+	/**
+	 * @test
+	 */
+	public function check_secret_is_expired_after_expiration_time() {
+		$this->ci->db->trans_start();
+		$minutes = 10;
+		$expireAfterInSeconds = 60 * $minutes;
+		$actualDateTime = new DateTime();
+		$expiresAt = new DateTime();
+		$expiresAt->modify("+{$expireAfterInSeconds} seconds");
+		$secret = SecretModel::get();
+		$secret->fromArray([
+			SecretModel::SECRET_TEXT => 'Test',
+			SecretModel::REMAINING_VIEWS => 2,
+			SecretModel::EXPIRES_AT => $expiresAt->format('Y-m-d H:i:s.u'),
+			SecretModel::CREATED_AT => $actualDateTime->format('Y-m-d H:i:s.u'),
+		]);
+		$secret->save();
+		$expireAfterInSeconds++;
+		$actualDateTime->modify("+{$expireAfterInSeconds} seconds");
+		$this->assertEquals($secret->isExpired($actualDateTime), true);
 		$this->ci->db->trans_rollback();
 	}
 }
