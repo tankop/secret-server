@@ -1,18 +1,19 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * Created by Tankó Péter
  */
 
 use chriskacerguis\RestServer\Format;
 use chriskacerguis\RestServer\RestController;
+
 class MasterRestController extends RestController {
 
 	function __construct() {
 		parent::__construct();
 	}
 
-	public function response($data = null, $http_code = null, $continue = false)
-	{
+	public function response($data = null, $http_code = null, $continue = false) {
 		//if profiling enabled then print profiling data
 		$isProfilingEnabled = $this->config->item('enable_profiling');
 		if (!$isProfilingEnabled) {
@@ -20,7 +21,7 @@ class MasterRestController extends RestController {
 			// If the HTTP status is not NULL, then cast as an integer
 			if ($http_code !== null) {
 				// So as to be safe later on in the process
-				$http_code = (int) $http_code;
+				$http_code = (int)$http_code;
 			}
 
 			// Set the output as NULL by default
@@ -29,24 +30,21 @@ class MasterRestController extends RestController {
 			// If data is NULL and no HTTP status code provided, then display, error and exit
 			if ($data === null && $http_code === null) {
 				$http_code = HTTP_NOT_FOUND;
-			}
-
-			// If data is not NULL and a HTTP status code provided, then continue
+			} // If data is not NULL and a HTTP status code provided, then continue
 			elseif ($data !== null) {
 				// If the format method exists, call and return the output in that format
-				if (method_exists(Format::class, 'to_'.$this->response->format)) {
+				if (method_exists(Format::class, 'to_' . $this->response->format)) {
 					// CORB protection
 					// First, get the output content.
 					if ($this->response->format == 'xml') {
-						$output = Format::factory($data)->{'to_'.$this->response->format}($data, null, 'Secret');
-					}
-					else {
-						$output = Format::factory($data)->{'to_'.$this->response->format}();
+						$output = Format::factory($data)->{'to_' . $this->response->format}($data, null, 'Secret');
+					} else {
+						$output = Format::factory($data)->{'to_' . $this->response->format}();
 					}
 
 					// Set the format header
 					// Then, check if the client asked for a callback, and if the output contains this callback :
-					if (isset($this->_get_args['callback']) && $this->response->format == 'json' && preg_match('/^'.$this->_get_args['callback'].'/', $output)) {
+					if (isset($this->_get_args['callback']) && $this->response->format == 'json' && preg_match('/^' . $this->_get_args['callback'] . '/', $output)) {
 						$this->output->set_content_type($this->_supported_formats['jsonp'], strtolower($this->config->item('charset')));
 					} else {
 						$this->output->set_content_type($this->_supported_formats[$this->response->format], strtolower($this->config->item('charset')));

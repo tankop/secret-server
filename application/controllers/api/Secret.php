@@ -13,7 +13,8 @@ class Secret extends MasterRestController {
 	public function index_get($hash) {
 		if (!empty($hash)){
 			$secret = SecretModel::get()->getByHash($hash);
-			if ($secret instanceof SecretModel){
+			if ($secret instanceof SecretModel && !$secret->isExpired()){
+				$secret->isShowed();
 				$this->response($secret->toApi(), 200);
 			}
 		}
