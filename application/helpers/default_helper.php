@@ -4,7 +4,8 @@
  */
 
 if (!function_exists('hashGenerator')) {
-	function hashGenerator() {
+	function hashGenerator()
+	{
 		return md5(uniqid(rand(), true));
 	}
 }

@@ -4,20 +4,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Created by Tankó Péter
  */
-class SecretModel extends SecretModelMap {
+class SecretModel extends SecretModelMap
+{
 
-	function __construct() {
+	function __construct()
+	{
 		parent::__construct();
 	}
 
-	public static function get() {
+	public static function get()
+	{
 		return new self;
 	}
 
 	/**
 	 * override method
 	 */
-	public function save() {
+	public function save()
+	{
 		if (empty($this->hash)) {
 			$this->hash = $this->generateUniqueHash();
 			$this->insert();
@@ -31,7 +35,8 @@ class SecretModel extends SecretModelMap {
 	 * This method generates a unique hash to the secret object
 	 * @return hash
 	 */
-	public function generateUniqueHash() {
+	public function generateUniqueHash()
+	{
 		$hash = hashGenerator();
 		while ($this->getByHash($hash) instanceof SecretModel) {
 			$hash = hashGenerator();
@@ -43,7 +48,8 @@ class SecretModel extends SecretModelMap {
 	 * Get secret object by hash
 	 * @param $hash
 	 */
-	public function getByHash($hash) {
+	public function getByHash($hash)
+	{
 		return $this->db->select()
 			->from(self::DB_TABLE_NAME)
 			->where(self::HASH, $hash)
@@ -56,7 +62,8 @@ class SecretModel extends SecretModelMap {
 	 * @param $expireAfterViews
 	 * @param $expireAfter
 	 */
-	public function createSecret($secret, $expireAfterViews, $expireAfter) {
+	public function createSecret($secret, $expireAfterViews, $expireAfter)
+	{
 		$expireAfterInSeconds = 60 * $expireAfter;
 		$actualDateTime = new DateTime();
 		$this->setSecretText($secret);
@@ -73,7 +80,8 @@ class SecretModel extends SecretModelMap {
 	 * This method generates the response for the API.
 	 * @return array
 	 */
-	public function toApi() {
+	public function toApi()
+	{
 		$createdAt = new DateTime($this->createdAt);
 		$expiresAt = new DateTime($this->expiresAt);
 		if (!empty($this->hash)) {
@@ -93,7 +101,8 @@ class SecretModel extends SecretModelMap {
 	 * @param $actualDateTime - if false, checks the current time.
 	 * @return bool
 	 */
-	public function isExpired($actualDateTime = false) {
+	public function isExpired($actualDateTime = false)
+	{
 		if ($this instanceof SecretModel) {
 			if ($this->remainingViews == 0) {
 				return true;
@@ -114,7 +123,8 @@ class SecretModel extends SecretModelMap {
 	/**
 	 * This method is decreasing the remaining number of views by 1 on the secret object.
 	 */
-	public function isShowed() {
+	public function isShowed()
+	{
 		if ($this->remainingViews > 0) {
 			$this->remainingViews--;
 		}

@@ -1,11 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class SecretModel_test extends TestCase {
+class SecretModel_test extends TestCase
+{
 
 	protected $ci;
 
-	public function setUp() {
+	public function setUp()
+	{
 		$this->ci = &get_instance();
 		$this->ci->load->model('SecretModelMap');
 		$this->ci->load->model('SecretModel');
@@ -15,7 +17,8 @@ class SecretModel_test extends TestCase {
 	/**
 	 * @test
 	 */
-	public function check_hash_length() {
+	public function check_hash_length()
+	{
 		$hash = hashGenerator();
 		$this->assertEquals(strlen($hash), 32);
 	}
@@ -23,7 +26,8 @@ class SecretModel_test extends TestCase {
 	/**
 	 * @test
 	 */
-	public function check_secret_object_created(){
+	public function check_secret_object_created()
+	{
 		$this->ci->db->trans_start();
 
 		$secret = SecretModel::get();
@@ -45,7 +49,8 @@ class SecretModel_test extends TestCase {
 	/**
 	 * @test
 	 */
-	public function check_created_secret_object_expiration_time(){
+	public function check_created_secret_object_expiration_time()
+	{
 		$this->ci->db->trans_start();
 
 		$minutes = 5646554;
@@ -64,7 +69,8 @@ class SecretModel_test extends TestCase {
 	/**
 	 * @test
 	 */
-	public function check_secret_is_expired_after_view() {
+	public function check_secret_is_expired_after_view()
+	{
 		$this->ci->db->trans_start();
 		$expireAfterViews = 5;
 		$minutes = 10;
@@ -81,7 +87,8 @@ class SecretModel_test extends TestCase {
 	/**
 	 * @test
 	 */
-	public function check_secret_is_expired_after_expiration_time() {
+	public function check_secret_is_expired_after_expiration_time()
+	{
 		$this->ci->db->trans_start();
 		$minutes = 10;
 		$expireAfterInSeconds = 60 * $minutes;
