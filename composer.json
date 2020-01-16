@@ -23,7 +23,6 @@
 	"components/jquery": "3.3.1",
 	"components/jqueryui": "1.12.1",
 	"components/font-awesome": "5.0.6",
-	"phpunit/phpunit": "^6",
 	"chriskacerguis/codeigniter-restserver": "^3.1",
 	"sweetalert2/sweetalert2": "7.28.4"
   }
