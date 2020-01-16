@@ -12,7 +12,7 @@ $config['add_secret'] = [
 	[
 		'field' => 'expireAfterViews',
 		'label' => 'expireAfterViews',
-		'rules' => 'trim|required|is_natural'
+		'rules' => 'trim|required|is_natural_no_zero'
 	],
 	[
 		'field' => 'expireAfter',
