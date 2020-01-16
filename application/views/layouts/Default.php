@@ -22,6 +22,7 @@
 		'assets/vendor/twbs/bootstrap/dist/css/bootstrap.min.css',
 		'assets/vendor/components/font-awesome/css/fontawesome-all.min.css',
 		'assets/vendor/components/jqueryui/themes/base/jquery-ui.min.css',
+		'assets/vendor/sweetalert2/sweetalert2/dist/sweetalert2.min.css',
 		'assets/css/default.css',
 	];
 	foreach ($css_array as $css_file) {
@@ -41,7 +42,8 @@
 		'assets/vendor/twbs/bootstrap/site/docs/4.1/assets/js/vendor/popper.min.js',
 		'assets/vendor/components/jqueryui/jquery-ui.min.js',
 		'assets/vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
-		'assets/js/secret.js',
+		'assets/vendor/sweetalert2/sweetalert2/dist/sweetalert2.all.min.js',
+		'assets/js/secret.min.js',
 	];
 	foreach ($js_array as $js_file) {
 		if (file_exists($js_file)) {
@@ -51,13 +53,10 @@
 		}
 	}
 	?>
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7.1.0/dist/promise.min.js"></script>
 	<meta name="csrf-name" content="<?= get_instance()->security->get_csrf_token_name() ?>"/>
 	<meta name="csrf-token" content="<?= get_instance()->security->get_csrf_hash() ?>"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<script type="text/javascript">
-		const BASE_URL = "<?=base_url()?>";
-		const INVALID_INPUTS_MESSAGE = "<?=lang('default.00016')?>";
-	</script>
 </head>
 <body>
 <header>

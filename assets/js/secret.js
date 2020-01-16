@@ -15,7 +15,6 @@ var secret = {
 	},
 
 	checkSecret: function () {
-		$('#check-secret-response-message').html('');
 		var settings = {
 			"url": BASE_URL + "api/secret/" + ($('[name=hash]').val().length > 0 ? $('[name=hash]').val() : '-'),
 			"method": "GET",
@@ -27,30 +26,37 @@ var secret = {
 		};
 
 		$.ajax(settings).done(function (response) {
-			if (response.expiresAt != ''){
+			$('[name=hash]').val('');
+			if (response.expiresAt != '') {
 				var d = new Date(response.expiresAt);
-				var date = d.getUTCFullYear() + "-" + ("0" + (d.getUTCMonth() + 1)).slice(-2) + "-" + d.getUTCDate() + " " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds();
-			}else{
+				var date = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getDate() + " " + ("0" + (d.getHours())).slice(-2) + ":" + ("0" + (d.getMinutes())).slice(-2) + ":" + ("0" + (d.getSeconds())).slice(-2);
+			} else {
 				date = '';
 			}
-			$('#check-secret-response-message').append(
-				'<div class="success-message mt-3 mb-3 p-3">' +
-				'<div class="secret-text">Secret: ' + response.secretText + '</div>' +
-				'<div class="secret-text">Views to expire: ' + response.remainingViews + '</div>' +
-				'<div class="secret-text">Expire: ' + date + '</div>' +
-				'</div>'
-			)
+			Swal.fire({
+				type: 'success',
+				title: GET_SECRET_SUCCESS_TITLE,
+				html: 'Secret: ' + response.secretText + '<br/>' +
+					'Views to expire: ' + response.remainingViews + '<br/>' +
+					'Expire: ' + date,
+				confirmButtonText: OK_BTN_TEXT,
+				confirmButtonClass: 'custom-orange-btn'
+			});
 		}).fail(function (xhr, status, error) {
-			$('#check-secret-response-message').append('<div class="error-message mt-3 mb-3">' + xhr.responseJSON.error + '</div>');
+			Swal.fire({
+				type: 'error',
+				text: xhr.responseJSON.error,
+				confirmButtonText: OK_BTN_TEXT,
+				confirmButtonClass: 'custom-orange-btn'
+			});
 		});
 	},
 
 	createSecret: function () {
-		$('#new-secret-response-message').html('');
 		var secret = $('[name=secretText]').val();
 		var expireAfterViews = $('[name=remainingViews]').val();
 		var expireAfter = $('[name=expiresAt]').val();
-		if (expireAfterViews > 0 && expireAfter >=0 && secret.length > 0){
+		if (expireAfterViews > 0 && expireAfter >= 0 && secret.length > 0) {
 			var data = {
 				"secret": secret,
 				"expireAfterViews": expireAfterViews,
@@ -67,21 +73,43 @@ var secret = {
 				"data": data
 			};
 			$.ajax(settings).done(function (response) {
-				$('#new-secret-response-message').append(
-					'<div class="success-message mt-3 mb-3 p-3">' +
-					'<div class="secret-text">Your secret hash: ' + response.hash + '</div>' +
-					'</div>');
+				$('[name=secretText]').val('');
+				$('[name=remainingViews]').val('');
+				$('[name=expiresAt]').val('');
+				Swal.fire({
+					type: 'success',
+					title: SUCCESS_SECRET_CREATED_TITLE,
+					html: SUCCESS_SECRET_CREATED_MESSAGE + '<br/><b>' + response.hash + '</b>',
+					confirmButtonText: COPY_HASH_BTN_TEXT,
+					confirmButtonClass: 'custom-orange-btn'
+				}).then(function (result) {
+					if (result.value) {
+						var temp = $("<input>");
+						$("body").append(temp);
+						temp.val(response.hash).select();
+						document.execCommand("copy");
+						temp.remove();
+					}
+				});
 			}).fail(function (xhr, status, error) {
-				$('#new-secret-response-message').append('<div class="error-message mt-3 mb-3">' + xhr.responseJSON.error + '</div>');
-			});;
-		}else{
-			$('#new-secret-response-message').append('<div class="error-message mt-3 mb-3">' + INVALID_INPUTS_MESSAGE + '</div>');
+				Swal.fire({
+					type: 'error',
+					text: INVALID_INPUTS_MESSAGE,
+					confirmButtonText: OK_BTN_TEXT,
+					confirmButtonClass: 'custom-orange-btn'
+				});
+			});
+		} else {
+			Swal.fire({
+				type: 'error',
+				text: INVALID_INPUTS_MESSAGE,
+				confirmButtonText: OK_BTN_TEXT,
+				confirmButtonClass: 'custom-orange-btn'
+			})
 		}
 	},
 
 	clearAllData: function () {
-		$('#check-secret-response-message').html('');
-		$('#new-secret-response-message').html('');
 		$('[name=hash]').val('');
 		$('[name=secretText]').val('');
 		$('[name=remainingViews]').val('');

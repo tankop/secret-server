@@ -75,4 +75,45 @@ body {
 #main-container .custom-container .wrap-content .buttons .btn.custom-grey-btn:hover {
   background-color: #616164;
 }
+#main-container .custom-container .wrap-content .infobox {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: #e6652a;
+}
+#main-container .custom-container .wrap-content .infobox .infoboxtext {
+  visibility: hidden;
+  width: 150px;
+  background-color: #4b4b4e;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 5px;
+  /* Position the infobox */
+  position: absolute;
+  z-index: 1;
+}
+#main-container .custom-container .wrap-content .infobox:hover .infoboxtext {
+  visibility: visible;
+}
+.swal2-popup .swal2-styled.custom-orange-btn {
+  background-color: #e6652a !important;
+  color: #fff;
+  border-radius: unset;
+  padding-left: 30px;
+  padding-right: 30px;
+  text-transform: uppercase;
+  font-family: "Roboto Bold";
+}
+.swal2-popup .swal2-styled.custom-orange-btn:hover {
+  background-color: #d9632a !important;
+}
+.swal2-popup .swal2-styled.custom-orange-btn:focus {
+  box-shadow: none;
+}
+@media only screen and (max-width: 400px) {
+  #main-container .custom-container .wrap-content .infobox .infoboxtext {
+    width: 115px;
+  }
+}
 /*# sourceMappingURL=default.css.map */
