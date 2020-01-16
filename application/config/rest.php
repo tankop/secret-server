@@ -52,6 +52,7 @@ $config['rest_supported_formats'] = [
     'php',
     'serialized',
     'xml',
+	'yaml',
 ];
 
 /*

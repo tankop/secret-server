@@ -3,17 +3,22 @@
 /**
  * Created by Tankó Péter
  */
+require APPPATH . "core/MasterFormat.php";
 
 use chriskacerguis\RestServer\Format;
 use chriskacerguis\RestServer\RestController;
 
-class MasterRestController extends RestController {
+class MasterRestController extends RestController
+{
 
-	function __construct() {
+	function __construct()
+	{
+		$this->_supported_formats['yaml'] = 'application/yaml';
 		parent::__construct();
 	}
 
-	public function response($data = null, $http_code = null, $continue = false) {
+	public function response($data = null, $http_code = null, $continue = false)
+	{
 		//if profiling enabled then print profiling data
 		$isProfilingEnabled = $this->config->item('enable_profiling');
 		if (!$isProfilingEnabled) {
@@ -44,10 +49,13 @@ class MasterRestController extends RestController {
 
 					// Set the format header
 					// Then, check if the client asked for a callback, and if the output contains this callback :
-					if (isset($this->_get_args['callback']) && $this->response->format == 'json' && preg_match('/^' . $this->_get_args['callback'] . '/', $output)) {
-						$this->output->set_content_type($this->_supported_formats['jsonp'], strtolower($this->config->item('charset')));
+					if (isset($this->_get_args['callback']) && $this->response->format == 'json' && preg_match('/^' . $this->_get_args['callback'] . '/',
+							$output)) {
+						$this->output->set_content_type($this->_supported_formats['jsonp'],
+							strtolower($this->config->item('charset')));
 					} else {
-						$this->output->set_content_type($this->_supported_formats[$this->response->format], strtolower($this->config->item('charset')));
+						$this->output->set_content_type($this->_supported_formats[$this->response->format],
+							strtolower($this->config->item('charset')));
 					}
 
 					// An array must be parsed as a string, so as not to cause an array to string error
@@ -55,6 +63,8 @@ class MasterRestController extends RestController {
 					if ($this->response->format === 'array') {
 						$output = Format::factory($output)->{'to_json'}();
 					}
+				} elseif (method_exists(MasterFormat::class, 'to_' . $this->response->format)) {
+					$output = MasterFormat::factory($data)->{'to_' . $this->response->format}($data);
 				} else {
 					// If an array or object, then parse as a json, so as to be a 'string'
 					if (is_array($data) || is_object($data)) {
